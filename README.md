@@ -66,8 +66,8 @@ O dashboard permite aos usuários gerenciar processos automatizados, visualizar 
 
 #### 1. Clone o Repositório
 ```bash
-git clone https://github.com/vncys/dashboard-angular-api.git
-cd dashboard-angular-api
+git clone https://github.com/vncys/dashboard-spring-angular.git
+cd dashboard-spring-angular
 ```
 
 #### 2. Instale as Dependências

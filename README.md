@@ -197,10 +197,4 @@ npm start -- --port 4201
 - Verifique se todas as rotas estão definidas em `app.routes.ts`
 - Confirme se os componentes estão sendo importados corretamente
 
-## Sobre o Desenvolvedor
-
-Este projeto foi desenvolvido por **Vinicius** como parte de seus estudos em Sistemas de Informação. O objetivo era criar um dashboard completo e funcional que demonstrasse boas práticas de desenvolvimento web.
-
----
-
 **Nota**: Este projeto mostra como construir uma aplicação web moderna usando Angular 17, com foco em experiência do usuário, design responsivo e código limpo e organizado.

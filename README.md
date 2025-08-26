@@ -122,28 +122,7 @@ O projeto abrirá automaticamente em `http://localhost:4200`
 3. Salve as mudanças
 4. Teste a restauração dos valores padrão
 
-## Estrutura do Projeto
 
-```
-angular-dashboard/
-├── src/
-│   ├── app/
-│   │   ├── components/
-│   │   │   ├── auth/           # Sistema de login e registro
-│   │   │   ├── dashboard/      # Dashboard principal
-│   │   │   ├── home/           # Página inicial
-│   │   │   ├── process/        # Gestão de processos
-│   │   │   ├── settings/       # Configurações do sistema
-│   │   │   └── statistics/     # Estatísticas e gráficos
-│   │   ├── services/           # Serviços compartilhados
-│   │   ├── app.component.ts    # Componente principal
-│   │   ├── app.routes.ts       # Configuração de rotas
-│   │   └── app.config.ts       # Configuração da aplicação
-│   ├── styles.scss             # Estilos globais
-│   └── index.html              # Página HTML principal
-├── package.json                 # Dependências e scripts
-└── README.md                    # Este arquivo
-```
 
 ## Comandos Úteis
 

@@ -197,31 +197,6 @@ npm start -- --port 4201
 - Verifique se todas as rotas estão definidas em `app.routes.ts`
 - Confirme se os componentes estão sendo importados corretamente
 
-## Responsividade
-
-O sistema funciona bem em diferentes tamanhos de tela:
-- **Desktop** (1200px+) - Layout completo
-- **Tablet** (768px - 1199px) - Layout adaptado
-- **Mobile** (até 767px) - Layout otimizado para mobile
-
-Para testar a responsividade, redimensione a janela do navegador ou use as ferramentas de desenvolvedor (F12).
-
-## Recursos de Aprendizagem
-
-Se você quiser aprender mais sobre as tecnologias usadas:
-- [Documentação do Angular](https://angular.io/docs)
-- [Tutorial de TypeScript](https://www.typescriptlang.org/docs/)
-- [Guia de SCSS](https://sass-lang.com/guide)
-- [Material Design](https://material.io/design)
-
-## Contribuição
-
-Para contribuir com melhorias:
-1. Faça um fork do repositório
-2. Crie uma branch para sua feature
-3. Faça as mudanças
-4. Envie um pull request
-
 ## Sobre o Desenvolvedor
 
 Este projeto foi desenvolvido por **Vinicius** como parte de seus estudos em Sistemas de Informação. O objetivo era criar um dashboard completo e funcional que demonstrasse boas práticas de desenvolvimento web.

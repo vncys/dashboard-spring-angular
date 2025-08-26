@@ -1,0 +1,32 @@
+spring:
+  config:
+    activate:
+      on-profile: prod  # Linha 32 - removendo aspas desnecessárias
+  
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/metamorfose}
+    username: ${DATABASE_USERNAME:metamorfose}
+    password: ${DATABASE_PASSWORD:password}
+    driver-class-name: org.postgresql.Driver  
+    hikari:
+      maximum-pool-size: 20      
+      minimum-idle: 5           
+      connection-timeout: 30000  
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate  
+    show-sql: false       
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:please-change-this-in-production}
+    expiration: ${JWT_EXPIRATION:86400000}
+
+logging:
+  level:
+    root: WARN
+    com.metamorfose.backend: INFO 

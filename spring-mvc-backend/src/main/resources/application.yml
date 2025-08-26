@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: metamorfose-backend
+  profiles:
+    active: dev
+
+  jpa:
+    hibernate:
+      "ddl-auto": update  
+    "show-sql": true    
+    properties:
+      hibernate:
+        "format_sql": true             
+        dialect: org.hibernate.dialect.H2Dialect
+    "open-in-view": false 
+
+  datasource:
+    url: "jdbc:h2:mem:metamorfose_dev"
+    username: sa
+    password: password
+    "driver-class-name": org.h2.Driver  
+  h2:
+    console:
+      enabled: true
+      path: "/h2-console"
+
+server:
+  port: 8080
+  servlet:
+    "context-path": "/api" 
+
+# Configuração do OpenAPI/Swagger
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+
+app:
+  jwt:
+    secret: "${JWT_SECRET:metamorfose-jwt-secret-key-very-long-and-secure-for-production-use}"
+    expiration: 86400000
+
+logging:
+  level:
+    "com.metamorfose.backend": DEBUG        
+    "org.springframework.security": DEBUG  
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info,metrics,prometheus"
+  endpoint:
+    health:
+      "show-details": always

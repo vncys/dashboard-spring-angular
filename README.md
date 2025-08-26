@@ -158,23 +158,7 @@ npm run lint      # Verifica qualidade do código
 npm run build:prod    # Build otimizado para produção
 ```
 
-## Personalização
 
-### Mudando Cores
-As cores do sistema podem ser alteradas editando o arquivo `src/styles.scss`. Procure pelas variáveis CSS no início do arquivo:
-
-```scss
-:root {
-  --primary-color: #6366f1;      # Cor principal
-  --secondary-color: #8b5cf6;    # Cor secundária
-  --success-color: #10b981;      # Cor de sucesso
-  --warning-color: #f59e0b;      # Cor de aviso
-  --error-color: #ef4444;        # Cor de erro
-}
-```
-
-### Modificando Componentes
-Todos os componentes são standalone (Angular 17), o que significa que podem ser facilmente modificados. Cada componente está em sua própria pasta com arquivos `.ts`, `.html` e `.scss`.
 
 ## Solução de Problemas
 

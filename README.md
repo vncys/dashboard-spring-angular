@@ -13,7 +13,7 @@ Sistema web para gestão de processos automatizados, estatísticas, relatórios 
 2. Execute o backend:
    - Windows:
      ```bash
-     mvnw.cmd spring-boot:run
+     ./mvnw spring-boot:run
      ```
    - Linux/Mac:
      ```bash

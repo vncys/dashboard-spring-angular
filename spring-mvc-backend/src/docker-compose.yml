@@ -1,0 +1,71 @@
+# Metamorfose Backend Docker Compose
+# Author: Ester Silva
+# Created on: 16-08-2025
+# Squad: Metamorfose
+
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - DATABASE_URL=jdbc:postgresql://db:5432/metamorfose
+      - DATABASE_USERNAME=metamorfose
+      - DATABASE_PASSWORD=metamorfose123
+      - JWT_SECRET=metamorfose-production-secret-key-very-long-and-secure
+    depends_on:
+      - db
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+    networks:
+      - metamorfose-network
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=metamorfose
+      - POSTGRES_USER=metamorfose
+      - POSTGRES_PASSWORD=metamorfose123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U metamorfose -d metamorfose" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    restart: unless-stopped
+    networks:
+      - metamorfose-network
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - metamorfose-network
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+networks:
+  metamorfose-network:
+    driver: bridge

@@ -1,0 +1,16 @@
+{
+  "properties": [
+    {
+      "name": "app.jwt.secret",
+      "type": "java.lang.String",
+      "description": "Chave secreta para assinatura de tokens JWT",
+      "defaultValue": "metamorfose-jwt-secret-key-very-long-and-secure-for-production-use"
+    },
+    {
+      "name": "app.jwt.expiration",
+      "type": "java.lang.Long",
+      "description": "Tempo de expiração do token JWT em milissegundos",
+      "defaultValue": 86400000
+    }
+  ]
+}

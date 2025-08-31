@@ -62,6 +62,3 @@ Sistema web para gestão de processos automatizados, estatísticas, relatórios 
 - Gestão de processos (criar, editar, excluir)
 - Relatórios e exportação de dados
 - Configurações do sistema
-
----
-Sistema direto, rápido e fácil de usar para automação residencial e análise de dados.

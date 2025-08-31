@@ -306,7 +306,7 @@ import { FormsModule } from '@angular/forms';
       </div>
 
       <!-- Top Processos -->
-      <div class="top-processes">
+      <div class="top-processos">
         <h3>
           <span class="icon material-symbols-rounded">trophy</span>
           Top Processos por Performance
@@ -352,7 +352,7 @@ import { FormsModule } from '@angular/forms';
     }
 
     .header h1 {
-      color: #3f51b5;
+      color: #fff;
       margin: 0;
     }
 
@@ -400,57 +400,43 @@ import { FormsModule } from '@angular/forms';
     }
 
     .metric-card {
-      background: var(--gradient-card);
-      border: 1px solid var(--border-primary);
-      padding: 1.5rem;
+      background: #212121;
+      color: #fff;
+      border: 2px solid var(--primary-color);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
+      padding: 2rem 1.5rem;
+      margin: 0;
       display: flex;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
+      min-height: 180px;
+      text-align: center;
       gap: 1rem;
-      transition: all var(--transition-normal);
-      backdrop-filter: blur(10px);
-    }
-
-    .metric-card:hover {
-      transform: translateY(-2px);
-    }
-
-    .metric-card.highlight {
-      border-left: 4px solid #4caf50;
     }
 
     .metric-icon {
-      font-size: 2rem;
-      width: 3rem;
-      text-align: center;
+      margin-bottom: 1rem;
     }
 
-    .metric-content h3 {
-      margin: 0 0 0.5rem 0;
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      font-weight: 500;
+    .metric-content {
+      width: 100%;
     }
 
     .metric-value {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: bold;
-      color: var(--text-primary);
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.5rem;
     }
 
     .metric-change {
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
-
-    .metric-change.positive {
-      color: #4caf50;
-    }
-
-    .metric-change.negative {
-      color: #f44336;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      justify-content: center;
     }
 
     .charts-grid {
@@ -461,12 +447,20 @@ import { FormsModule } from '@angular/forms';
     }
 
     .chart-card {
-      background: var(--gradient-card);
-      border: 1px solid var(--border-primary);
-      padding: 1.5rem;
+      background: #212121;
+      color: #fff;
+      border: 2px solid var(--accent-color);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
+      padding: 2rem 1.5rem;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 180px;
+      text-align: center;
+      gap: 1rem;
     }
 
     .chart-card.full-width {
@@ -773,21 +767,26 @@ import { FormsModule } from '@angular/forms';
     }
 
     .insight-card {
-      background: var(--gradient-card);
-      border: 1px solid var(--border-primary);
-      padding: 1rem;
+      background: #212121;
+      color: #fff;
+      border: 2px solid var(--success-color);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
+      padding: 2rem 1.5rem;
+      margin: 0;
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 180px;
+      text-align: center;
       gap: 1rem;
-      border-left: 4px solid;
-      backdrop-filter: blur(10px);
     }
 
     .insight-card.positive { border-left-color: #4caf50; }
-    .insight-card.warning { border-left-color: #ff9800; }
-    .insight-card.info { border-left-color: #2196f3; }
-    .insight-card.success { border-left-color: #8bc34a; }
+    .insight-card.warning { border-left-color: #4caf50; }
+    .insight-card.info { border-left-color: #4caf50; }
+    .insight-card.success { border-left-color: #4caf50; }
 
     .insight-icon {
       font-size: 1.5rem;
@@ -807,7 +806,7 @@ import { FormsModule } from '@angular/forms';
       line-height: 1.4;
     }
 
-    .top-processes {
+    .top-processos {
       background: var(--gradient-card);
       border: 1px solid var(--border-primary);
       padding: 1.5rem;
@@ -816,7 +815,7 @@ import { FormsModule } from '@angular/forms';
       backdrop-filter: blur(10px);
     }
 
-    .top-processes h3 {
+    .top-processos h3 {
       margin: 0 0 1rem 0;
       color: var(--text-primary);
       font-weight: 600;
@@ -1045,4 +1044,4 @@ export class StatisticsComponent {
   exportData(): void {
     alert('Exportando dados estatísticos...\n\nFormato: CSV\nPeríodo: Últimos ' + this.selectedPeriod + ' dias');
   }
-} 
+}

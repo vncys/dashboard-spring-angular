@@ -21,24 +21,26 @@
 
 // Variáveis CSS para Dark Mode
 :root {
-  // Cores principais
-  --primary-color: #6366f1;
-  --primary-light: #818cf8;
-  --primary-dark: #4f46e5;
-  --secondary-color: #f59e0b;
-  --accent-color: #10b981;
+  // Cores principais da marca
+  --primary-color: #9D68FF;
+  --primary-light: #B89AFF;
+  --primary-dark: #6B3FCB;
+  --secondary-color: #6EF575;
+  --secondary-light: #A8FFD6;
+  --secondary-dark: #3CBF8C;
+  --accent-color: #6EF575;
   --error-color: #ef4444;
   --warning-color: #f59e0b;
-  --success-color: #10b981;
-  --info-color: #3b82f6;
+  --success-color: #6EF575;
+  --info-color: #9D68FF;
 
-  // Dark Theme Colors
-  --bg-primary: #0f0f23;
-  --bg-secondary: #1a1a2e;
-  --bg-tertiary: #16213e;
-  --bg-card: #1e1e3f;
-  --bg-hover: #2a2a4a;
-  --bg-active: #3a3a5a;
+  // Dark Theme Colors (paleta da marca)
+  --bg-primary: #181818;
+  --bg-secondary: #181818;
+  --bg-tertiary: #181818;
+  --bg-card: #212121;
+  --bg-hover: #292929;
+  --bg-active: #333333;
 
   // Surface colors
   --surface-1: #1a1a2e;
@@ -68,7 +70,7 @@
   --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--primary-light));
   --gradient-secondary: linear-gradient(135deg, var(--secondary-color), #fbbf24);
   --gradient-accent: linear-gradient(135deg, var(--accent-color), #34d399);
-  --gradient-card: linear-gradient(145deg, var(--bg-card), var(--surface-3));
+  --gradient-card: none;
 
   // Transitions
   --transition-fast: 0.15s ease;
@@ -190,6 +192,10 @@ select:focus {
 .icon-lg { font-size: 32px; }
 .icon-xl { font-size: 48px; }
 
+.icon, .icon-sm, .icon-md, .icon-lg, .icon-xl {
+  color: var(--secondary-color);
+}
+
 // Button base styles
 .btn {
   display: inline-flex;
@@ -235,14 +241,24 @@ select:focus {
 }
 
 // Button variants
-.btn-primary {
-  background: var(--gradient-primary);
-  color: white;
+.btn-primary,
+.btn-success,
+.btn-warning,
+.btn-danger,
+.btn-info {
+  background: #9D68FF;
+  color: #fff;
   box-shadow: var(--shadow);
+  border: none;
 }
 
-.btn-primary:hover {
-  transform: translateY(-2px);
+.btn-primary:hover,
+.btn-success:hover,
+.btn-warning:hover,
+.btn-danger:hover,
+.btn-info:hover {
+  background: #6B3FCB;
+  color: #fff;
   box-shadow: var(--shadow-md);
 }
 
@@ -255,26 +271,6 @@ select:focus {
 .btn-secondary:hover {
   background: var(--bg-hover);
   border-color: var(--border-secondary);
-}
-
-.btn-success {
-  background: var(--gradient-accent);
-  color: white;
-}
-
-.btn-warning {
-  background: var(--gradient-secondary);
-  color: white;
-}
-
-.btn-danger {
-  background: linear-gradient(135deg, var(--error-color), #dc2626);
-  color: white;
-}
-
-.btn-info {
-  background: linear-gradient(135deg, var(--info-color), #2563eb);
-  color: white;
 }
 
 // Button sizes
@@ -315,8 +311,9 @@ select:focus {
 }
 
 // Card styles
-.card {
-  background: var(--gradient-card);
+.card, .stat-card, .action-card, .process-card, .feature-card {
+  background: #212121;
+  color: #ffffff;
   border: 1px solid var(--border-primary);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
@@ -488,4 +485,8 @@ select:focus {
     color: black !important;
     box-shadow: none !important;
   }
-} 
+}
+
+h1 {
+  color: #fff;
+}

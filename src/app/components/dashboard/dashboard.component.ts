@@ -158,7 +158,7 @@ import { RouterModule } from '@angular/router';
     }
 
     .stat-card {
-      background: var(--gradient-card);
+      background: #212121;
       border: 1px solid var(--border-primary);
       padding: 1.5rem;
       border-radius: var(--radius-lg);
@@ -231,7 +231,7 @@ import { RouterModule } from '@angular/router';
     }
 
     .action-card {
-      background: var(--gradient-card);
+      background: #212121;
       border: 1px solid var(--border-primary);
       padding: 1.5rem;
       border-radius: var(--radius-lg);
@@ -377,4 +377,4 @@ import { RouterModule } from '@angular/router';
     }
   `]
 })
-export class DashboardComponent {} 
+export class DashboardComponent {}

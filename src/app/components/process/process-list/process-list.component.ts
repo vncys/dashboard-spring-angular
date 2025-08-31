@@ -209,7 +209,7 @@ import { ProcessService, ProcessData } from '../../../services/process.service';
     }
 
     .process-card {
-      background: var(--gradient-card);
+      background: #212121;
       border: 1px solid var(--border-primary);
       border-radius: var(--radius-lg);
       padding: 1.5rem;
@@ -559,4 +559,4 @@ export class ProcessListComponent implements OnInit {
 
     return `${elapsedMinutes}/${totalMinutes} min`;
   }
-} 
+}

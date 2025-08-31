@@ -13,8 +13,7 @@ import { Subscription } from 'rxjs';
       <header class="header">
         <div class="header-content">
           <div class="logo">
-            <span class="icon material-symbols-rounded">auto_awesome</span>
-            <h1 class="text-gradient">Dashboard Metamorfose</h1>
+            <img src="assets/logo.svg" alt="Logo" height="34" />
           </div>
           <nav class="nav">
             <a routerLink="/home" routerLinkActive="active" class="nav-link">

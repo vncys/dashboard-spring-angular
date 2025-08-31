@@ -16,7 +16,7 @@
  */
 
  package br.com.metamorfose.backend.model.entity;
- import jakarta.persistence.*;
+ import javax.persistence.*;
  import org.hibernate.annotations.CreationTimestamp;
  import org.hibernate.annotations.UpdateTimestamp;
  import java.time.LocalDateTime;

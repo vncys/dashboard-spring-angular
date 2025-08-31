@@ -16,8 +16,8 @@
  */
 
  package br.com.metamorfose.backend.model.dto;
- import jakarta.validation.constraints.NotBlank;
- import jakarta.validation.constraints.Size;
+ import javax.validation.constraints.NotBlank;
+ import javax.validation.constraints.Size;
  public class CreateProcessDTO {
     
     @NotBlank(message = "Nome é obrigatório")

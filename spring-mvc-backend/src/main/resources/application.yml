@@ -1,4 +1,4 @@
-spring:
+﻿spring:
   application:
     name: metamorfose-backend
   profiles:
@@ -28,14 +28,6 @@ server:
   port: 8080
   servlet:
     "context-path": "/api" 
-
-# Configuração do OpenAPI/Swagger
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-    operations-sorter: method
 
 app:
   jwt:

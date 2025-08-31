@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ProcessService } from '../../../services/process.service';
 
 @Component({
   selector: 'app-process-form',
@@ -479,17 +480,45 @@ export class ProcessFormComponent {
 
   loading = false;
 
+  constructor(
+    private processService: ProcessService,
+    private router: Router
+  ) {}
+
   onSubmit(): void {
     if (this.loading) return;
     
     this.loading = true;
     
-    // Simulação de criação
-    setTimeout(() => {
+    try {
+      // Criando o processo usando o ProcessService
+      const newProcess = this.processService.createProcess({
+        name: this.processData.name,
+        type: this.processData.type,
+        description: this.processData.description,
+        priority: this.processData.priority,
+        timeout: this.processData.timeout,
+        autoStart: this.processData.autoStart,
+        sendNotifications: this.processData.sendNotifications,
+        inputSource: this.processData.inputSource,
+        outputTarget: this.processData.outputTarget,
+        parameters: this.processData.parameters,
+        status: this.processData.autoStart ? 'RUNNING' : 'STOPPED',
+        progress: 0,
+        estimatedDuration: this.processData.timeout || 60
+      });
+
       this.loading = false;
-      alert(`Processo "${this.processData.name}" foi criado com sucesso!`);
-      this.resetForm();
-    }, 2000);
+      alert(`Processo "${newProcess.name}" foi criado com sucesso!`);
+      
+      // Redirecionar para a lista de processos
+      this.router.navigate(['/processes']);
+      
+    } catch (error) {
+      this.loading = false;
+      alert('Erro ao criar processo. Tente novamente.');
+      console.error('Erro ao criar processo:', error);
+    }
   }
 
   resetForm(): void {

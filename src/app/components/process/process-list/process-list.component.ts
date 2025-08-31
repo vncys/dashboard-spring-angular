@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProcessService, ProcessData } from '../../../services/process.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-process-list',
@@ -11,7 +12,10 @@ import { ProcessService, ProcessData } from '../../../services/process.service';
   template: `
     <div class="container">
       <div class="header">
-        <h1>Gerenciamento de Processos</h1>
+        <h1>
+          <span class="icon material-symbols-rounded">settings</span>
+          Gerenciamento de Processos
+        </h1>
         <a routerLink="/processes/new" class="btn btn-primary">
           ➕ Novo Processo
         </a>
@@ -46,7 +50,12 @@ import { ProcessService, ProcessData } from '../../../services/process.service';
       </div>
 
       <div class="process-grid">
-        <div *ngFor="let process of filteredProcesses" class="process-card">
+        <div *ngFor="let process of filteredProcesses" 
+             class="process-card" 
+             [class.card-running]="process.status === 'RUNNING'"
+             [class.card-completed]="process.status === 'COMPLETED'"
+             [class.card-stopped]="process.status === 'STOPPED'"
+             [class.card-error]="process.status === 'ERROR'">
           <div class="process-header">
             <h3>{{ process.name }}</h3>
             <span class="status-badge" [class]="'status-' + process.status.toLowerCase()">
@@ -68,12 +77,14 @@ import { ProcessService, ProcessData } from '../../../services/process.service';
                 {{ getTimerDisplay(process) }}
               </div>
             </div>
-            <div class="info-item">
+            <div class="info-item progress-item">
               <strong>Progresso:</strong>
-              <div class="progress-bar">
-                <div class="progress-fill" [style.width.%]="process.progress"></div>
+              <div class="progress-container">
+                <div class="progress-bar">
+                  <div class="progress-fill" [style.width.%]="process.progress"></div>
+                </div>
+                <span class="progress-text">{{ process.progress }}%</span>
               </div>
-              <span class="progress-text">{{ process.progress }}%</span>
             </div>
           </div>
 
@@ -147,8 +158,16 @@ import { ProcessService, ProcessData } from '../../../services/process.service';
     }
 
     .header h1 {
-      color: #3f51b5;
+      color: #fff;
       margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .header h1 .icon {
+      font-size: 2rem;
+      color: var(--primary-color);
     }
 
     .filters {
@@ -210,11 +229,12 @@ import { ProcessService, ProcessData } from '../../../services/process.service';
 
     .process-card {
       background: #212121;
-      border: 1px solid var(--border-primary);
+      color: #fff;
+      border: 2px solid var(--primary-color);
       border-radius: var(--radius-lg);
-      padding: 1.5rem;
       box-shadow: var(--shadow);
-      border-left: 4px solid var(--primary-color);
+      padding: 1.5rem;
+      margin: 0;
       transition: all var(--transition-normal);
       backdrop-filter: blur(10px);
     }
@@ -222,7 +242,22 @@ import { ProcessService, ProcessData } from '../../../services/process.service';
     .process-card:hover {
       transform: translateY(-4px);
       box-shadow: var(--shadow-lg);
-      border-color: var(--border-secondary);
+    }
+
+    .process-card.card-running {
+      border-color: #2196f3;
+    }
+
+    .process-card.card-completed {
+      border-color: #4caf50;
+    }
+
+    .process-card.card-stopped {
+      border-color: #ff9800;
+    }
+
+    .process-card.card-error {
+      border-color: #f44336;
     }
 
     .process-header {
@@ -302,23 +337,41 @@ import { ProcessService, ProcessData } from '../../../services/process.service';
 
     .progress-bar {
       flex: 1;
-      height: 8px;
-      background: var(--bg-secondary);
+      height: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: var(--radius);
       overflow: hidden;
+      position: relative;
     }
 
     .progress-fill {
       height: 100%;
-      background: var(--gradient-primary);
+      background: linear-gradient(90deg, #10b981, #059669);
       transition: width var(--transition-normal);
+      border-radius: var(--radius);
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+    }
+
+    .progress-item {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 0.5rem !important;
+    }
+
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      width: 100%;
     }
 
     .progress-text {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      min-width: 35px;
-      font-weight: 500;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      min-width: 40px;
+      font-weight: 600;
+      text-align: right;
     }
 
     .process-description {
@@ -359,15 +412,29 @@ import { ProcessService, ProcessData } from '../../../services/process.service';
     }
 
     .btn-success {
-      background: var(--gradient-accent);
+      background: linear-gradient(135deg, #10b981, #059669);
       color: white;
-      border: 1px solid var(--accent-color);
+      border: 1px solid #059669;
+      box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);
+    }
+
+    .btn-success:hover {
+      background: linear-gradient(135deg, #059669, #047857);
+      border: 1px solid #047857;
+      box-shadow: 0 4px 8px rgba(5, 150, 105, 0.3);
     }
 
     .btn-warning {
-      background: var(--gradient-secondary);
+      background: linear-gradient(135deg, #f59e0b, #d97706);
       color: white;
-      border: 1px solid var(--warning-color);
+      border: 1px solid #d97706;
+      box-shadow: 0 2px 4px rgba(217, 119, 6, 0.2);
+    }
+
+    .btn-warning:hover {
+      background: linear-gradient(135deg, #d97706, #b45309);
+      border: 1px solid #b45309;
+      box-shadow: 0 4px 8px rgba(217, 119, 6, 0.3);
     }
 
     .btn-info {
@@ -435,7 +502,7 @@ import { ProcessService, ProcessData } from '../../../services/process.service';
     }
   `]
 })
-export class ProcessListComponent implements OnInit {
+export class ProcessListComponent implements OnInit, OnDestroy {
   
   constructor(
     private router: Router,
@@ -444,14 +511,84 @@ export class ProcessListComponent implements OnInit {
 
   ngOnInit() {
     this.loadProcesses();
+    
+    // Recarregar a lista a cada 30 segundos para manter atualizada
+    this.refreshInterval = setInterval(() => {
+      this.loadProcesses();
+      this.filterProcesses();
+    }, 30000);
+
+    // Simular progresso automático para processos em execução
+    this.progressInterval = setInterval(() => {
+      this.updateRunningProcessesProgress();
+    }, 5000);
+
+    // Atualizar quando navegar para esta rota
+    this.routerSubscription = this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        if (event.url === '/processes') {
+          this.loadProcesses();
+          this.filterProcesses();
+        }
+      });
+
+    // Atualizar quando a janela voltar ao foco
+    this.focusListener = () => {
+      this.loadProcesses();
+      this.filterProcesses();
+    };
+    window.addEventListener('focus', this.focusListener);
+  }
+
+  ngOnDestroy() {
+    if (this.refreshInterval) {
+      clearInterval(this.refreshInterval);
+    }
+    if (this.progressInterval) {
+      clearInterval(this.progressInterval);
+    }
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+    if (this.focusListener) {
+      window.removeEventListener('focus', this.focusListener);
+    }
   }
 
   processes: ProcessData[] = [];
   filteredProcesses: ProcessData[] = [];
+  private refreshInterval: any;
+  private progressInterval: any;
+  private routerSubscription: any;
+  private focusListener: any;
 
   loadProcesses(): void {
     this.processes = this.processService.getAllProcesses();
     this.filteredProcesses = [...this.processes];
+  }
+
+  updateRunningProcessesProgress(): void {
+    this.processes.forEach(process => {
+      if (process.status === 'RUNNING' && process.progress < 100) {
+        // Simular progresso gradual (1-3% a cada 5 segundos)
+        const increment = Math.floor(Math.random() * 3) + 1;
+        const newProgress = Math.min(process.progress + increment, 100);
+        
+        if (newProgress !== process.progress) {
+          this.processService.updateProcess(process.id, { progress: newProgress });
+          
+          // Se chegou a 100%, marcar como completo
+          if (newProgress === 100) {
+            this.processService.updateProcessStatus(process.id, 'COMPLETED');
+          }
+        }
+      }
+    });
+    
+    // Recarregar a lista após atualizar o progresso
+    this.loadProcesses();
+    this.filterProcesses();
   }
   selectedStatus = '';
   selectedType = '';
@@ -534,14 +671,26 @@ export class ProcessListComponent implements OnInit {
   }
 
   getTimerDisplay(process: any): string {
-    if (!process.startTime || !process.estimatedDuration) {
+    // Se não tem estimatedDuration, não podemos calcular timer
+    if (!process.estimatedDuration) {
       return 'N/A';
+    }
+
+    const totalMinutes = process.estimatedDuration;
+    
+    // Se processo ainda não foi iniciado (STOPPED sem startTime)
+    if (process.status === 'STOPPED' && !process.startTime) {
+      return `0/${totalMinutes} min (Aguardando)`;
+    }
+
+    // Se não tem startTime, mas tem estimatedDuration, mostrar apenas duração estimada
+    if (!process.startTime) {
+      return `${totalMinutes} min (Estimado)`;
     }
 
     const now = new Date();
     const elapsedMs = now.getTime() - process.startTime.getTime();
     const elapsedMinutes = Math.floor(elapsedMs / 60000);
-    const totalMinutes = process.estimatedDuration;
 
     if (process.status === 'COMPLETED' && process.endTime) {
       const totalElapsed = Math.floor((process.endTime.getTime() - process.startTime.getTime()) / 60000);
